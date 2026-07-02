@@ -377,9 +377,15 @@
     setLoading(signupSubmit, true, 'Creating account');
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
-      if (name) {
-        await updateProfile(cred.user, { displayName: name });
-      }
+
+if (name) {
+    await updateProfile(cred.user, {
+        displayName: name
+    });
+}
+
+// Redirect to homepage after account creation
+window.location.href = "index.html";
     } catch (error) {
       showMessage(friendlyError(error));
     } finally {
@@ -396,7 +402,10 @@
 
     setLoading(signinSubmit, true, 'Signing in');
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+// Redirect after successful login
+window.location.href = "index.html";
     } catch (error) {
       showMessage(friendlyError(error));
     } finally {
@@ -409,6 +418,8 @@
     clearMessage();
     try {
       await signInWithPopup(auth, googleProvider);
+
+window.location.href = "index.html";
     } catch (error) {
       showMessage(friendlyError(error));
     }
