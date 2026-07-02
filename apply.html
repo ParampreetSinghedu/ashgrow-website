@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply for Admission — Ashgrove University</title>
+<meta name="description" content="Apply for admission to Ashgrove University — a research university dedicated to inquiry, craft, and consequence since 1889.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   Ashgrove University — Design System
+   (Reused verbatim from index.html / auth.html so this
+   page inherits the exact same visual language.)
+   ===================================================== */
+:root {
+  --navy: #1A2744;
+  --navy-deep: #101828;
+  --parchment: #F7F4EC;
+  --parchment-dim: #EFEADC;
+  --brass: #B08D57;
+  --brass-bright: #C7A46E;
+  --forest: #2F5233;
+  --ink: #23262B;
+  --slate: #5B5F66;
+  --line: rgba(26,39,68,0.14);
+  --line-dark: rgba(247,244,236,0.16);
+  --error: #c1432f;
+  --success: #1f8a5b;
+
+  --serif: 'Playfair Display', serif;
+  --sans: 'Source Sans 3', sans-serif;
+
+  --container: 1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--parchment);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* ---------- Seal mark (signature element) ---------- */
+.seal {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  position: relative;
+}
+.seal svg { width: 100%; height: 100%; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+.btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.btn-brass {
+  background: var(--brass);
+  color: var(--navy-deep);
+}
+.btn-brass:hover:not(:disabled) { background: var(--brass-bright); transform: translateY(-1px); box-shadow: 0 8px 20px -6px rgba(176,141,87,0.5); }
+.btn-brass:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-navy { background: var(--navy); color: var(--parchment); }
+.btn-navy:hover { background: var(--navy-deep); transform: translateY(-1px); }
+.btn-outline { background: transparent; border-color: var(--navy); color: var(--navy); }
+.btn-outline:hover { background: var(--navy); color: var(--parchment); }
+.btn-outline-light { background: transparent; border-color: rgba(247,244,236,0.4); color: var(--parchment); }
+.btn-outline-light:hover { border-color: var(--parchment); background: rgba(247,244,236,0.08); }
+.btn-lg { padding: 15px 32px; font-size: 15.5px; }
+.btn-sm { padding: 9px 18px; font-size: 13px; }
+
+/* ---------- Top utility bar ---------- */
+.utility-bar {
+  background: var(--navy-deep);
+  color: rgba(247,244,236,0.7);
+  font-size: 12.5px;
+}
+.utility-bar .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 36px;
+}
+.utility-links { display: flex; gap: 22px; }
+.utility-links a:hover { color: var(--brass-bright); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--parchment);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84px;
+  gap: 24px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.nav-brand .word {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+  color: var(--navy);
+}
+.nav-brand .word small {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a:not(.btn) {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-links a:not(.btn)::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--brass);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.nav-links a:not(.btn):hover::after { transform: scaleX(1); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-toggle {
+  display: none;
+  background: none; border: none;
+  width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+.nav-toggle span { width: 22px; height: 2px; background: var(--navy); border-radius: 1px; }
+
+/* ---------- Page header (mini-hero for interior pages) ---------- */
+.page-header {
+  background: var(--navy);
+  color: var(--parchment);
+  padding: 64px 0 56px;
+}
+.page-header .eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.page-header .rule { width: 30px; height: 1.5px; background: var(--brass); }
+.page-header h1 {
+  font-size: clamp(30px, 4vw, 44px);
+  max-width: 640px;
+}
+.page-header p {
+  max-width: 560px;
+  margin-top: 16px;
+  color: rgba(247,244,236,0.72);
+  font-size: 16px;
+}
+
+/* ---------- Application section ---------- */
+.apply-section { padding: 72px 0 110px; }
+.apply-shell {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Status card shown while auth state resolves */
+.status-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 48px 40px;
+  text-align: center;
+}
+.status-card .spinner-lg {
+  width: 30px; height: 30px;
+  border: 3px solid var(--line);
+  border-top-color: var(--brass);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.status-card h2 { font-size: 22px; margin-bottom: 10px; }
+.status-card p { color: var(--slate); font-size: 15px; }
+
+/* Signed-in identity strip */
+.identity-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 18px 22px;
+  margin-bottom: 32px;
+}
+.identity-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--parchment);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.identity-text .name { font-weight: 600; font-size: 15px; }
+.identity-text .email { font-size: 13.5px; color: var(--slate); }
+.identity-badge {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--success);
+  background: #e8f5ef;
+  padding: 5px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* Form card */
+.form-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 44px 40px 40px;
+}
+.form-group-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 4px;
+}
+.form-group-sub {
+  font-size: 13.5px;
+  color: var(--slate);
+  margin-bottom: 22px;
+}
+.form-fieldset {
+  margin-bottom: 40px;
+}
+.form-fieldset:last-of-type { margin-bottom: 0; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+}
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field.full { grid-column: 1 / -1; }
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.form-field .required-mark { color: var(--error); margin-left: 2px; }
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font: inherit;
+  font-size: 14.5px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--parchment);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  width: 100%;
+}
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(176,141,87,0.18);
+  background: #fff;
+}
+.form-field input[readonly] {
+  background: var(--parchment-dim);
+  color: var(--slate);
+  cursor: not-allowed;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+.form-field .hint {
+  font-size: 12px;
+  color: var(--slate);
+}
+
+/* Declaration */
+.declaration {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--parchment-dim);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 18px 20px;
+  margin-top: 8px;
+}
+.declaration input[type="checkbox"] {
+  margin-top: 3px;
+  width: 17px;
+  height: 17px;
+  accent-color: var(--navy);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.declaration label {
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+/* Submit row */
+.submit-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.submit-row .btn { min-width: 200px; }
+
+.form-message {
+  font-size: 13.5px;
+  padding: 11px 14px;
+  border-radius: 2px;
+  display: none;
+  line-height: 1.5;
+}
+.form-message.show { display: block; }
+.form-message.error { background: #fbeae7; color: var(--error); }
+.form-message.success { background: #e8f5ef; color: var(--success); }
+.form-message.info { background: var(--parchment-dim); color: var(--slate); }
+
+.spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(16,24,40,0.35);
+  border-top-color: var(--navy-deep);
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -2px;
+  margin-right: 7px;
+}
+
+/* Logged-out prompt card */
+.login-prompt {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 56px 40px;
+  text-align: center;
+}
+.login-prompt .seal { margin: 0 auto 18px; width: 44px; height: 44px; }
+.login-prompt h2 { font-size: 24px; margin-bottom: 10px; }
+.login-prompt p { color: var(--slate); font-size: 15px; max-width: 420px; margin: 0 auto 26px; }
+
+/* ---------- Footer (reused verbatim) ---------- */
+.site-footer {
+  background: var(--navy-deep);
+  color: rgba(247,244,236,0.55);
+  padding: 64px 0 28px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line-dark);
+}
+.footer-brand .nav-brand .word { color: var(--parchment); }
+.footer-brand .nav-brand .word small { color: rgba(247,244,236,0.45); }
+.footer-brand p { font-size: 13.5px; max-width: 260px; line-height: 1.65; margin-top: 16px; }
+.footer-col h4 {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--parchment);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.footer-col a { display: block; font-size: 13.5px; margin-bottom: 11px; transition: color 0.15s ease; }
+.footer-col a:hover { color: var(--brass-bright); }
+.footer-bottom {
+  padding-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a:hover { color: var(--brass-bright); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+}
+@media (max-width: 700px) {
+  .utility-bar { display: none; }
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .form-card { padding: 32px 22px 30px; }
+  .apply-section { padding: 48px 0 72px; }
+  .identity-strip { flex-wrap: wrap; }
+  .identity-badge { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ UTILITY BAR ============ -->
+<div class="utility-bar">
+  <div class="wrap">
+    <div class="utility-links">
+      <a href="index.html#academics">Directory</a>
+      <a href="index.html#campus-life">Library</a>
+      <a href="index.html">Calendar</a>
+    </div>
+    <div class="utility-links">
+      <a href="index.html">Faculty &amp; Staff</a>
+      <a href="index.html">Alumni</a>
+      <a href="index.html">Give to Ashgrove</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV (identical structure to index.html) ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-brand">
+      <span class="seal" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="28" stroke="#1A2744" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+          <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#1A2744"/>
+        </svg>
+      </span>
+      <span class="word">Ashgrove<small>University · Est. 1889</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#academics">Academics</a>
+      <a href="index.html#admissions">Admissions</a>
+      <a href="index.html#campus-life">Campus Life</a>
+      <a href="index.html#about">About</a>
+    </nav>
+    <div class="nav-actions">
+
+      <span
+          id="welcomeUser"
+          style="display:none; font-weight:600; margin-right:12px;">
+      </span>
+
+      <a href="auth.html"
+         class="btn btn-outline btn-sm"
+         id="loginBtn">
+          Log in
+      </a>
+
+      <button
+          class="btn btn-outline btn-sm"
+          id="logoutBtn"
+          style="display:none;">
+          Log out
+      </button>
+
+      <a href="apply.html"
+         class="btn btn-brass btn-sm">
+          Apply now
+      </a>
+
+    </div>
+
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="wrap">
+    <div class="eyebrow-row">
+      <span class="rule"></span>
+      <span class="eyebrow">Admissions</span>
+    </div>
+    <h1>Your application to Ashgrove starts here.</h1>
+    <p>Every field below goes straight to our admissions office — no third-party form, no redirect. Take your time; you can review everything before you submit.</p>
+  </div>
+</section>
+
+<!-- ============ APPLICATION SECTION ============ -->
+<section class="apply-section">
+  <div class="wrap apply-shell">
+
+    <!-- Shown briefly while Firebase resolves auth state -->
+    <div id="checkingAuth" class="status-card">
+      <div class="spinner-lg"></div>
+      <h2>Checking your sign-in status</h2>
+      <p>One moment while we confirm your Ashgrove account.</p>
+    </div>
+
+    <!-- Shown if the user is NOT signed in -->
+    <div id="loggedOutView" class="login-prompt" style="display:none;">
+      <span class="seal" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="28" stroke="#1A2744" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+          <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#1A2744"/>
+        </svg>
+      </span>
+      <h2>Sign in to apply</h2>
+      <p>You'll need an Ashgrove account to start or resume an application. It only takes a moment, and we'll bring you right back here.</p>
+      <a href="auth.html" class="btn btn-brass btn-lg">Log in or create an account</a>
+    </div>
+
+    <!-- Shown if the user IS signed in -->
+    <div id="applicationView" style="display:none;">
+
+      <!-- Identity confirmation strip -->
+      <div class="identity-strip">
+        <div class="identity-avatar" id="identityAvatar">?</div>
+        <div class="identity-text">
+          <div class="name" id="identityName">—</div>
+          <div class="email" id="identityEmail">—</div>
+        </div>
+        <span class="identity-badge">Signed in</span>
+      </div>
+
+      <form id="applicationForm" class="form-card" novalidate>
+
+        <!-- ---------- Personal Information ---------- -->
+        <fieldset class="form-fieldset">
+          <legend class="form-group-title">Personal information</legend>
+          <p class="form-group-sub">Your name and email are pulled from your Ashgrove account and can't be edited here.</p>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="fullName">Full name <span class="required-mark">*</span></label>
+              <input type="text" id="fullName" name="fullName" readonly required>
+            </div>
+            <div class="form-field">
+              <label for="email">Email <span class="required-mark">*</span></label>
+              <input type="email" id="email" name="email" readonly required>
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone number <span class="required-mark">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
+            </div>
+            <div class="form-field">
+              <label for="dob">Date of birth <span class="required-mark">*</span></label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-field">
+              <label for="gender">Gender <span class="required-mark">*</span></label>
+              <select id="gender" name="gender" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="other">Other</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="nationality">Nationality <span class="required-mark">*</span></label>
+              <input type="text" id="nationality" name="nationality" placeholder="e.g. Canadian" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ---------- Address ---------- -->
+        <fieldset class="form-fieldset">
+          <legend class="form-group-title">Address</legend>
+          <p class="form-group-sub">Where can we reach you by mail?</p>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="country">Country <span class="required-mark">*</span></label>
+              <input type="text" id="country" name="country" required>
+            </div>
+            <div class="form-field">
+              <label for="state">State / Province <span class="required-mark">*</span></label>
+              <input type="text" id="state" name="state" required>
+            </div>
+            <div class="form-field">
+              <label for="city">City <span class="required-mark">*</span></label>
+              <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-field">
+              <label for="postalContact">&nbsp;</label>
+              <input type="text" id="postalContact" name="postalContact" style="visibility:hidden;" tabindex="-1" aria-hidden="true">
+            </div>
+            <div class="form-field full">
+              <label for="address">Street address <span class="required-mark">*</span></label>
+              <textarea id="address" name="address" rows="2" required></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ---------- Academic Background ---------- -->
+        <fieldset class="form-fieldset">
+          <legend class="form-group-title">Academic background</legend>
+          <p class="form-group-sub">Tell us about the program you're applying for and where you're coming from.</p>
+          <div class="form-grid">
+            <div class="form-field full">
+              <label for="program">Program applying for <span class="required-mark">*</span></label>
+              <select id="program" name="program" required>
+                <option value="" disabled selected>Select a program</option>
+                <option value="arts-sciences">College of Arts &amp; Sciences</option>
+                <option value="engineering">School of Engineering</option>
+                <option value="medicine">School of Medicine</option>
+                <option value="law">School of Law</option>
+                <option value="business">School of Business</option>
+                <option value="fine-arts">School of Fine Arts</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="qualification">Highest qualification <span class="required-mark">*</span></label>
+              <select id="qualification" name="qualification" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="high-school">High school diploma</option>
+                <option value="associate">Associate degree</option>
+                <option value="bachelor">Bachelor's degree</option>
+                <option value="master">Master's degree</option>
+                <option value="doctorate">Doctorate</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="gpa">Percentage / GPA <span class="required-mark">*</span></label>
+              <input type="text" id="gpa" name="gpa" placeholder="e.g. 3.8 GPA or 92%" required>
+            </div>
+            <div class="form-field full">
+              <label for="previousSchool">Previous school / college <span class="required-mark">*</span></label>
+              <input type="text" id="previousSchool" name="previousSchool" required>
+            </div>
+            <div class="form-field full">
+              <label for="sop">Statement of purpose <span class="required-mark">*</span></label>
+              <textarea id="sop" name="sop" rows="6" placeholder="Tell us why you want to study at Ashgrove, and what you hope to work on while you're here." required></textarea>
+              <span class="hint">Aim for 250–500 words. You can refine this later.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ---------- Emergency Contact ---------- -->
+        <fieldset class="form-fieldset">
+          <legend class="form-group-title">Emergency contact</legend>
+          <p class="form-group-sub">Someone we can reach if we're unable to reach you.</p>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="emergencyName">Emergency contact name <span class="required-mark">*</span></label>
+              <input type="text" id="emergencyName" name="emergencyName" required>
+            </div>
+            <div class="form-field">
+              <label for="emergencyPhone">Emergency contact number <span class="required-mark">*</span></label>
+              <input type="tel" id="emergencyPhone" name="emergencyPhone" placeholder="+1 (555) 000-0000" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ---------- Declaration ---------- -->
+        <div class="declaration">
+          <input type="checkbox" id="declaration" name="declaration" required>
+          <label for="declaration">I certify that the information provided in this application is accurate and complete to the best of my knowledge, and I understand that any misrepresentation may affect my admission decision.</label>
+        </div>
+
+        <!-- ---------- Submit ---------- -->
+        <div id="formMessage" class="form-message"></div>
+        <div class="submit-row">
+          <button type="submit" class="btn btn-brass btn-lg" id="submitBtn">Submit application</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER (identical structure to index.html) ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-brand">
+          <span class="seal" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="#F7F4EC" stroke-width="1" opacity="0.4"/>
+              <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+              <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#B08D57"/>
+            </svg>
+          </span>
+          <span class="word">Ashgrove<small style="color: rgba(247,244,236,0.45);">University · Est. 1889</small></span>
+        </a>
+        <p>410 Kestrel Avenue, Ashgrove, MA 01890 — a residential research university with eleven schools and colleges.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Academics</h4>
+        <a href="index.html#academics">Schools &amp; colleges</a>
+        <a href="index.html">Majors &amp; minors</a>
+        <a href="index.html">Academic calendar</a>
+      </div>
+      <div class="footer-col">
+        <h4>Admissions</h4>
+        <a href="index.html#admissions">How to apply</a>
+        <a href="index.html">Tuition &amp; aid</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="footer-col">
+        <h4>Campus</h4>
+        <a href="index.html#campus-life">Student life</a>
+        <a href="index.html">Athletics</a>
+        <a href="index.html">Visit campus</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="index.html#about">History</a>
+        <a href="index.html">Leadership</a>
+        <a href="index.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Ashgrove University. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="index.html">Privacy</a>
+        <a href="index.html">Accessibility</a>
+        <a href="index.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ── Existing Firebase project — same config as index.html / auth.html ──
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZXFSlraoZhB5JqMj3t7s-H13TD4c1yYs",
+    authDomain: "project-1-721fb.firebaseapp.com",
+    projectId: "project-1-721fb",
+    storageBucket: "project-1-721fb.firebasestorage.app",
+    messagingSenderId: "813138072996",
+    appId: "1:813138072996:web:ab45135edef91253b45d31",
+    measurementId: "G-HHKD4LKKDH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // ── Mobile menu (same behavior as index.html) ──
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (toggle && links) {
+    toggle.addEventListener("click", () => {
+      const open = links.style.display === "flex";
+      links.style.display = open ? "none" : "flex";
+      links.style.cssText += open ? "" : `
+        position:absolute;
+        top:84px;
+        left:0;
+        right:0;
+        background:#F7F4EC;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:20px 32px;
+        border-bottom:1px solid rgba(26,39,68,.14);
+        gap:18px;
+        z-index:99;
+      `;
+    });
+  }
+
+  // ── Nav auth UI (identical to index.html) ──
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const welcomeUser = document.getElementById("welcomeUser");
+
+  // ── Page-level view containers ──
+  const checkingAuth = document.getElementById("checkingAuth");
+  const loggedOutView = document.getElementById("loggedOutView");
+  const applicationView = document.getElementById("applicationView");
+
+  // ── Identity strip elements ──
+  const identityAvatar = document.getElementById("identityAvatar");
+  const identityName = document.getElementById("identityName");
+  const identityEmail = document.getElementById("identityEmail");
+
+  // ── Form elements ──
+  const applicationForm = document.getElementById("applicationForm");
+  const fullNameInput = document.getElementById("fullName");
+  const emailInput = document.getElementById("email");
+  const submitBtn = document.getElementById("submitBtn");
+  const formMessage = document.getElementById("formMessage");
+
+  // Holds the applicant's identity data pulled from Firebase.
+  // uid is included now so it's ready to be sent to Google Sheets
+  // in the next stage (Google Apps Script integration).
+  let currentApplicant = {
+    uid: null,
+    displayName: null,
+    email: null
+  };
+
+  function showMessage(text, type = "info") {
+    formMessage.textContent = text;
+    formMessage.className = `form-message show ${type}`;
+  }
+  function clearMessage() {
+    formMessage.className = "form-message";
+    formMessage.textContent = "";
+  }
+
+  // ── Auth state observer ──
+  onAuthStateChanged(auth, (user) => {
+    checkingAuth.style.display = "none";
+
+    if (user) {
+      // --- Signed in: populate nav + page ---
+      currentApplicant = {
+        uid: user.uid,
+        displayName: user.displayName || user.email.split("@")[0],
+        email: user.email
+      };
+
+      // Nav bar (same behavior as index.html)
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-flex";
+      welcomeUser.style.display = "inline";
+      welcomeUser.textContent = "Welcome, " + currentApplicant.displayName;
+
+      // Identity strip
+      identityName.textContent = currentApplicant.displayName;
+      identityEmail.textContent = currentApplicant.email;
+      identityAvatar.textContent = currentApplicant.displayName.charAt(0).toUpperCase();
+
+      // Prefill read-only fields
+      fullNameInput.value = currentApplicant.displayName;
+      emailInput.value = currentApplicant.email;
+
+      loggedOutView.style.display = "none";
+      applicationView.style.display = "block";
+
+    } else {
+      // --- Signed out: show prompt, don't touch existing auth flow ---
+      currentApplicant = { uid: null, displayName: null, email: null };
+
+      loginBtn.style.display = "inline-flex";
+      logoutBtn.style.display = "none";
+      welcomeUser.style.display = "none";
+
+      applicationView.style.display = "none";
+      loggedOutView.style.display = "block";
+    }
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "index.html";
+  });
+
+  // ── Form submit handler ──
+  // NOTE: Backend integration (Google Apps Script + Google Sheets) is
+  // intentionally NOT implemented yet — this stage only builds and
+  // validates the frontend data model. The next stage will replace the
+  // body of this handler with a fetch() call to the Apps Script Web App.
+  applicationForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    clearMessage();
+
+    if (!applicationForm.checkValidity()) {
+      applicationForm.reportValidity();
+      return;
+    }
+
+    // Assemble the full data model, ready to be sent to Google Sheets
+    // in the next stage. uid is included per the project spec.
+    const applicationData = {
+      uid: currentApplicant.uid,
+      fullName: fullNameInput.value.trim(),
+      email: emailInput.value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      dob: document.getElementById("dob").value,
+      gender: document.getElementById("gender").value,
+      nationality: document.getElementById("nationality").value.trim(),
+      country: document.getElementById("country").value.trim(),
+      state: document.getElementById("state").value.trim(),
+      city: document.getElementById("city").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      program: document.getElementById("program").value,
+      qualification: document.getElementById("qualification").value,
+      previousSchool: document.getElementById("previousSchool").value.trim(),
+      gpa: document.getElementById("gpa").value.trim(),
+      sop: document.getElementById("sop").value.trim(),
+      emergencyName: document.getElementById("emergencyName").value.trim(),
+      emergencyPhone: document.getElementById("emergencyPhone").value.trim(),
+      declaration: document.getElementById("declaration").checked
+    };
+
+    // Temporary visibility into the data model during frontend-only stage.
+    console.log("Application data model (ready for backend submission):", applicationData);
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="spinner"></span>Submitting…`;
+
+    // Placeholder — will be replaced by a real fetch() call to the
+    // Google Apps Script Web App in the next implementation stage.
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Submit application";
+      showMessage(
+        "Backend submission isn't connected yet — this is a frontend preview only. Your data model was logged to the console.",
+        "info"
+      );
+    }, 700);
+  });
+</script>
+</body>
+</html>
