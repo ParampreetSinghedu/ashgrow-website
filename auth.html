@@ -296,6 +296,10 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+  // Redirect destination after login
+const redirect =
+    new URLSearchParams(window.location.search).get("redirect") ||
+    "index.html";
 
   // Analytics only works in supported browser contexts (not file://, not all browsers)
   analyticsIsSupported().then((supported) => {
@@ -384,8 +388,8 @@ if (name) {
     });
 }
 
-// Redirect to homepage after account creation
-window.location.href = "index.html";
+// Redirect after account creation
+window.location.href = redirect;
     } catch (error) {
       showMessage(friendlyError(error));
     } finally {
@@ -405,7 +409,7 @@ window.location.href = "index.html";
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
 // Redirect after successful login
-window.location.href = "index.html";
+window.location.href = redirect;
     } catch (error) {
       showMessage(friendlyError(error));
     } finally {
@@ -419,7 +423,7 @@ window.location.href = "index.html";
     try {
       await signInWithPopup(auth, googleProvider);
 
-window.location.href = "index.html";
+window.location.href = redirect;
     } catch (error) {
       showMessage(friendlyError(error));
     }
@@ -456,7 +460,7 @@ onAuthStateChanged(auth, (user) => {
   clearMessage();
 
   if (user) {
-    window.location.href = "index.html";
+   window.location.href = redirect;
     return;
   }
 
