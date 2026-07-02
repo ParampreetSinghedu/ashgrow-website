@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashgrove University — Founded 1889</title>
+<meta name="description" content="Ashgrove University — a research university dedicated to inquiry, craft, and consequence since 1889.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   Ashgrove University — Design System
+   ===================================================== */
+:root {
+  --navy: #1A2744;
+  --navy-deep: #101828;
+  --parchment: #F7F4EC;
+  --parchment-dim: #EFEADC;
+  --brass: #B08D57;
+  --brass-bright: #C7A46E;
+  --forest: #2F5233;
+  --ink: #23262B;
+  --slate: #5B5F66;
+  --line: rgba(26,39,68,0.14);
+  --line-dark: rgba(247,244,236,0.16);
+
+  --serif: 'Playfair Display', serif;
+  --sans: 'Source Sans 3', sans-serif;
+
+  --container: 1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--parchment);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* ---------- Seal mark (signature element) ---------- */
+.seal {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  position: relative;
+}
+.seal svg { width: 100%; height: 100%; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+.btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.btn-brass {
+  background: var(--brass);
+  color: var(--navy-deep);
+}
+.btn-brass:hover { background: var(--brass-bright); transform: translateY(-1px); box-shadow: 0 8px 20px -6px rgba(176,141,87,0.5); }
+.btn-navy { background: var(--navy); color: var(--parchment); }
+.btn-navy:hover { background: var(--navy-deep); transform: translateY(-1px); }
+.btn-outline { background: transparent; border-color: var(--navy); color: var(--navy); }
+.btn-outline:hover { background: var(--navy); color: var(--parchment); }
+.btn-outline-light { background: transparent; border-color: rgba(247,244,236,0.4); color: var(--parchment); }
+.btn-outline-light:hover { border-color: var(--parchment); background: rgba(247,244,236,0.08); }
+.btn-lg { padding: 15px 32px; font-size: 15.5px; }
+.btn-sm { padding: 9px 18px; font-size: 13px; }
+
+/* ---------- Top utility bar ---------- */
+.utility-bar {
+  background: var(--navy-deep);
+  color: rgba(247,244,236,0.7);
+  font-size: 12.5px;
+}
+.utility-bar .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 36px;
+}
+.utility-links { display: flex; gap: 22px; }
+.utility-links a:hover { color: var(--brass-bright); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--parchment);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84px;
+  gap: 24px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.nav-brand .word {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+  color: var(--navy);
+}
+.nav-brand .word small {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a:not(.btn) {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-links a:not(.btn)::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--brass);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.nav-links a:not(.btn):hover::after { transform: scaleX(1); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-toggle {
+  display: none;
+  background: none; border: none;
+  width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+.nav-toggle span { width: 22px; height: 2px; background: var(--navy); border-radius: 1px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--navy);
+  color: var(--parchment);
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 0;
+}
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 72px;
+}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.hero-eyebrow .rule { width: 30px; height: 1.5px; background: var(--brass); }
+.hero h1 {
+  font-size: clamp(36px, 4.6vw, 56px);
+  max-width: 620px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+.hero-sub {
+  max-width: 480px;
+  margin-top: 22px;
+  color: rgba(247,244,236,0.72);
+  font-size: 16.5px;
+}
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+.hero-facts {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-dark);
+}
+.hero-fact .n {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--brass-bright);
+}
+.hero-fact .l {
+  font-size: 12.5px;
+  color: rgba(247,244,236,0.55);
+  margin-top: 3px;
+}
+
+/* hero illustration panel */
+.hero-art {
+  position: relative;
+}
+.hero-art svg { width: 100%; height: auto; }
+
+/* ---------- Section shared ---------- */
+section { padding: 96px 0; }
+.section-head {
+  max-width: 640px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+.section-head.left { margin: 0 0 48px; text-align: left; }
+.section-head h2 {
+  font-size: clamp(28px, 3.6vw, 40px);
+  margin-top: 12px;
+}
+.section-head p { color: var(--slate); margin-top: 14px; font-size: 16px; }
+
+.divider-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.divider-mark .rule { width: 40px; height: 1px; background: var(--line); }
+.section-head.left .divider-mark { justify-content: flex-start; }
+
+/* ---------- Stats band ---------- */
+.stats-band {
+  background: var(--parchment-dim);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 48px 0;
+}
+.stat-item {
+  text-align: center;
+  border-left: 1px solid var(--line);
+  padding: 0 20px;
+}
+.stat-item:first-child { border-left: none; }
+.stat-item .n {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.stat-item .l {
+  font-size: 13px;
+  color: var(--slate);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Programs ---------- */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.program-card {
+  background: var(--parchment);
+  padding: 34px 30px;
+  transition: background 0.2s ease;
+}
+.program-card:hover { background: white; }
+.program-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--brass);
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: block;
+}
+.program-card h3 { font-size: 20px; margin-bottom: 10px; }
+.program-card p { color: var(--slate); font-size: 14.5px; margin-bottom: 18px; }
+.program-link {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.program-link svg { width: 14px; height: 14px; stroke: currentColor; transition: transform 0.15s ease; }
+.program-card:hover .program-link svg { transform: translateX(3px); }
+
+/* ---------- Life / features ---------- */
+.life-section { background: var(--navy); color: var(--parchment); }
+.life-section .section-head p { color: rgba(247,244,236,0.65); }
+.life-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.life-card {
+  background: rgba(247,244,236,0.04);
+  border: 1px solid var(--line-dark);
+  padding: 28px 24px;
+  border-radius: 2px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.life-card:hover { border-color: var(--brass); background: rgba(247,244,236,0.07); }
+.life-icon {
+  width: 40px; height: 40px;
+  border: 1.5px solid var(--brass);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.life-icon svg { width: 18px; height: 18px; stroke: var(--brass-bright); }
+.life-card h3 { font-size: 16.5px; margin-bottom: 8px; color: var(--parchment); font-weight: 600; }
+.life-card p { font-size: 13.5px; color: rgba(247,244,236,0.6); line-height: 1.6; }
+
+/* ---------- Admissions timeline ---------- */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 11px; left: 0; right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.timeline-step { padding: 0 24px 0 0; position: relative; }
+.timeline-dot {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--parchment);
+  border: 2px solid var(--brass);
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+}
+.timeline-step h3 { font-size: 16.5px; margin-bottom: 8px; }
+.timeline-step p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+.timeline-step .when {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-top: 10px;
+  display: block;
+}
+
+/* ---------- Testimonial ---------- */
+.quote-section {
+  background: var(--parchment-dim);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.quote-block {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.quote-block .mark {
+  font-family: var(--serif);
+  font-size: 64px;
+  color: var(--brass);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.quote-block p.quote-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 2.6vw, 28px);
+  color: var(--navy);
+  line-height: 1.45;
+}
+.quote-who {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--slate);
+  font-weight: 600;
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  background: var(--navy);
+  color: var(--parchment);
+  text-align: center;
+  padding: 72px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band .seal { margin: 0 auto 20px; width: 46px; height: 46px; }
+.cta-band h2 { font-size: clamp(26px, 3.6vw, 38px); max-width: 620px; margin: 0 auto; }
+.cta-band p { color: rgba(247,244,236,0.68); margin-top: 14px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.cta-band .hero-cta { justify-content: center; margin-top: 30px; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--navy-deep);
+  color: rgba(247,244,236,0.55);
+  padding: 64px 0 28px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line-dark);
+}
+.footer-brand .nav-brand .word { color: var(--parchment); }
+.footer-brand .nav-brand .word small { color: rgba(247,244,236,0.45); }
+.footer-brand p { font-size: 13.5px; max-width: 260px; line-height: 1.65; margin-top: 16px; }
+.footer-col h4 {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--parchment);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.footer-col a { display: block; font-size: 13.5px; margin-bottom: 11px; transition: color 0.15s ease; }
+.footer-col a:hover { color: var(--brass-bright); }
+.footer-bottom {
+  padding-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a:hover { color: var(--brass-bright); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-art { order: -1; max-width: 420px; margin: 0 auto; }
+  .footer-top { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+  .life-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .program-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .stat-item:nth-child(3) { border-left: none; }
+  .timeline { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .timeline::before { display: none; }
+}
+@media (max-width: 700px) {
+  .utility-bar { display: none; }
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .program-grid { grid-template-columns: 1fr; }
+  .life-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  section { padding: 64px 0; }
+  .hero-facts { flex-wrap: wrap; row-gap: 20px; }
+  .cta-band { padding: 52px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ UTILITY BAR ============ -->
+<div class="utility-bar">
+  <div class="wrap">
+    <div class="utility-links">
+      <a href="#">Directory</a>
+      <a href="#">Library</a>
+      <a href="#">Calendar</a>
+    </div>
+    <div class="utility-links">
+      <a href="#">Faculty &amp; Staff</a>
+      <a href="#">Alumni</a>
+      <a href="#">Give to Ashgrove</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-brand">
+      <span class="seal" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="28" stroke="#1A2744" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+          <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#1A2744"/>
+        </svg>
+      </span>
+      <span class="word">Ashgrove<small>University · Est. 1889</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#academics">Academics</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#campus-life">Campus Life</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Log in</a>
+      <a href="signup.html" class="btn btn-brass btn-sm">Apply now</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="rule"></span>
+        <span class="eyebrow">Founded 1889 · Ashgrove, Massachusetts</span>
+      </div>
+      <h1>A place built for the work that <em>takes a lifetime.</em></h1>
+      <p class="hero-sub">Ashgrove University brings together 6,400 students and 480 faculty across eleven schools, united by one habit: asking harder questions than the ones we started with.</p>
+      <div class="hero-cta">
+        <a href="signup.html" class="btn btn-brass btn-lg">Apply for admission</a>
+        <a href="#academics" class="btn btn-outline-light btn-lg">Explore programs</a>
+      </div>
+      <div class="hero-facts">
+        <div class="hero-fact"><div class="n">11</div><div class="l">Schools &amp; colleges</div></div>
+        <div class="hero-fact"><div class="n">6,400</div><div class="l">Enrolled students</div></div>
+        <div class="hero-fact"><div class="n">9:1</div><div class="l">Student–faculty ratio</div></div>
+        <div class="hero-fact"><div class="n">135</div><div class="l">Countries represented</div></div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- line-drawn campus mark: hall with dome, quad trees, and a path -->
+        <rect x="0" y="0" width="480" height="480" fill="none"/>
+        <!-- ground line -->
+        <line x1="30" y1="400" x2="450" y2="400" stroke="#B08D57" stroke-width="1" opacity="0.5"/>
+        <!-- main hall -->
+        <rect x="150" y="230" width="180" height="170" stroke="#F7F4EC" stroke-width="1.5" fill="none" opacity="0.85"/>
+        <!-- columns -->
+        <line x1="175" y1="250" x2="175" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <line x1="200" y1="250" x2="200" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <line x1="225" y1="250" x2="225" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <line x1="255" y1="250" x2="255" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <line x1="280" y1="250" x2="280" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <line x1="305" y1="250" x2="305" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.6"/>
+        <!-- pediment -->
+        <path d="M150 230 L240 180 L330 230" stroke="#F7F4EC" stroke-width="1.5" fill="none" opacity="0.85"/>
+        <!-- dome -->
+        <circle cx="240" cy="150" r="26" stroke="#B08D57" stroke-width="1.5" fill="none"/>
+        <line x1="240" y1="124" x2="240" y2="105" stroke="#B08D57" stroke-width="1.5"/>
+        <circle cx="240" cy="100" r="3" fill="#B08D57"/>
+        <line x1="214" y1="176" x2="266" y2="176" stroke="#F7F4EC" stroke-width="1.5" opacity="0.85"/>
+        <!-- steps -->
+        <line x1="140" y1="400" x2="340" y2="400" stroke="#F7F4EC" stroke-width="1.2" opacity="0.7"/>
+        <line x1="150" y1="410" x2="330" y2="410" stroke="#F7F4EC" stroke-width="1.2" opacity="0.5"/>
+        <line x1="160" y1="420" x2="320" y2="420" stroke="#F7F4EC" stroke-width="1.2" opacity="0.3"/>
+        <!-- door -->
+        <path d="M225 400 L225 340 Q240 325 255 340 L255 400" stroke="#B08D57" stroke-width="1.5" fill="none"/>
+        <!-- trees left -->
+        <g opacity="0.55">
+          <circle cx="80" cy="330" r="26" stroke="#F7F4EC" stroke-width="1.2" fill="none"/>
+          <line x1="80" y1="356" x2="80" y2="400" stroke="#F7F4EC" stroke-width="1.2"/>
+          <circle cx="60" cy="370" r="16" stroke="#F7F4EC" stroke-width="1" fill="none"/>
+          <line x1="60" y1="386" x2="60" y2="400" stroke="#F7F4EC" stroke-width="1"/>
+        </g>
+        <!-- trees right -->
+        <g opacity="0.55">
+          <circle cx="410" cy="325" r="28" stroke="#F7F4EC" stroke-width="1.2" fill="none"/>
+          <line x1="410" y1="353" x2="410" y2="400" stroke="#F7F4EC" stroke-width="1.2"/>
+          <circle cx="435" cy="365" r="15" stroke="#F7F4EC" stroke-width="1" fill="none"/>
+          <line x1="435" y1="380" x2="435" y2="400" stroke="#F7F4EC" stroke-width="1"/>
+        </g>
+        <!-- birds -->
+        <path d="M340 90 Q345 85 350 90 Q355 85 360 90" stroke="#B08D57" stroke-width="1.2" fill="none" opacity="0.7"/>
+        <path d="M370 110 Q375 105 380 110 Q385 105 390 110" stroke="#B08D57" stroke-width="1.2" fill="none" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAND ============ -->
+<div class="stats-band">
+  <div class="wrap stats-grid">
+    <div class="stat-item"><div class="n">98%</div><div class="l">First-year retention rate</div></div>
+    <div class="stat-item"><div class="n">$210M</div><div class="l">Annual research funding</div></div>
+    <div class="stat-item"><div class="n">62,000</div><div class="l">Living alumni worldwide</div></div>
+    <div class="stat-item"><div class="n">41</div><div class="l">Varsity &amp; club athletic teams</div></div>
+  </div>
+</div>
+
+<!-- ============ ACADEMICS ============ -->
+<section id="academics">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="divider-mark"><span class="rule"></span><span class="eyebrow">Academics</span><span class="rule"></span></div>
+      <h2>Eleven schools, one standard of rigor</h2>
+      <p>From the lab bench to the archive, every program at Ashgrove is built around original work — not just coursework.</p>
+    </div>
+
+    <div class="program-grid">
+      <div class="program-card">
+        <span class="program-num">01</span>
+        <h3>College of Arts &amp; Sciences</h3>
+        <p>The university's founding college, spanning 34 departments from philosophy to physics.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="program-card">
+        <span class="program-num">02</span>
+        <h3>School of Engineering</h3>
+        <p>Home to Ashgrove's robotics lab, materials institute, and undergraduate design studio.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="program-card">
+        <span class="program-num">03</span>
+        <h3>School of Medicine</h3>
+        <p>A four-year MD program paired with Ashgrove Medical Center, the region's largest teaching hospital.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="program-card">
+        <span class="program-num">04</span>
+        <h3>School of Law</h3>
+        <p>One of the oldest law schools in the country, with a moot court tradition dating to 1897.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="program-card">
+        <span class="program-num">05</span>
+        <h3>School of Business</h3>
+        <p>Case-based learning across finance, entrepreneurship, and operations, with a required consulting practicum.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="program-card">
+        <span class="program-num">06</span>
+        <h3>School of Fine Arts</h3>
+        <p>Painting, sculpture, and design housed in the restored 1912 Kestrel Foundry building.</p>
+        <a href="#" class="program-link">View programs <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAMPUS LIFE ============ -->
+<section id="campus-life" class="life-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="divider-mark"><span class="rule"></span><span class="eyebrow">Campus Life</span><span class="rule"></span></div>
+      <h2>A campus that stays open late</h2>
+      <p>Academics are the center of gravity — everything else at Ashgrove is built around it.</p>
+    </div>
+    <div class="life-grid">
+      <div class="life-card">
+        <div class="life-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <h3>Corwin Library</h3>
+        <p>2.4 million volumes and a reading room open until 2am during term.</p>
+      </div>
+      <div class="life-card">
+        <div class="life-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>240+ Student Organizations</h3>
+        <p>From the debate union founded in 1901 to this year's newest robotics club.</p>
+      </div>
+      <div class="life-card">
+        <div class="life-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Residential Colleges</h3>
+        <p>Nine residential houses, each with its own dining hall, faculty fellows, and traditions.</p>
+      </div>
+      <div class="life-card">
+        <div class="life-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Undergraduate Research</h3>
+        <p>Over 60% of undergraduates co-author or lead a research project before graduating.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMISSIONS TIMELINE ============ -->
+<section id="admissions">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="divider-mark"><span class="rule"></span><span class="eyebrow">Admissions</span><span class="rule"></span></div>
+      <h2>How to apply</h2>
+      <p>Ashgrove reads every application in full — no algorithmic first cut.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-dot"></div>
+        <h3>Submit your application</h3>
+        <p>Complete the Common Application or Ashgrove's own form, along with your transcript and two recommendations.</p>
+        <span class="when">Aug – Jan</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot"></div>
+        <h3>Interview (optional)</h3>
+        <p>Meet with a regional alumni interviewer — helpful, never required, never scored against you.</p>
+        <span class="when">Nov – Feb</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot"></div>
+        <h3>Committee review</h3>
+        <p>Every file is read by at least two admissions officers and discussed by full committee.</p>
+        <span class="when">Feb – Mar</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot"></div>
+        <h3>Decisions released</h3>
+        <p>Admitted students get four weeks to visit campus before committing.</p>
+        <span class="when">Late March</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<div class="quote-section">
+  <section style="padding: 88px 0;">
+    <div class="wrap">
+      <div class="quote-block">
+        <div class="mark">"</div>
+        <p class="quote-text">Ashgrove didn't just teach me a subject. It taught me how to sit with a hard problem long after it stopped being fun.</p>
+        <div class="quote-who">— Maren Okafor, Class of 2019, now a materials scientist</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CTA ============ -->
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <span class="seal" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="28" stroke="#F7F4EC" stroke-width="1.2" opacity="0.5"/>
+          <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+          <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#B08D57"/>
+        </svg>
+      </span>
+      <h2>Your application starts with one page.</h2>
+      <p>No fee waiver paperwork required upfront — start now and we'll walk you through it.</p>
+      <div class="hero-cta">
+        <a href="signup.html" class="btn btn-brass btn-lg">Start your application</a>
+        <a href="login.html" class="btn btn-outline-light btn-lg">Returning applicant? Log in</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-brand">
+          <span class="seal" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="#F7F4EC" stroke-width="1" opacity="0.4"/>
+              <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+              <path d="M30 14L34 26H46L36 33L40 45L30 38L20 45L24 33L14 26H26L30 14Z" fill="#B08D57"/>
+            </svg>
+          </span>
+          <span class="word">Ashgrove<small style="color: rgba(247,244,236,0.45);">University · Est. 1889</small></span>
+        </a>
+        <p>410 Kestrel Avenue, Ashgrove, MA 01890 — a residential research university with eleven schools and colleges.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Academics</h4>
+        <a href="#academics">Schools &amp; colleges</a>
+        <a href="#">Majors &amp; minors</a>
+        <a href="#">Academic calendar</a>
+      </div>
+      <div class="footer-col">
+        <h4>Admissions</h4>
+        <a href="#admissions">How to apply</a>
+        <a href="#">Tuition &amp; aid</a>
+        <a href="signup.html">Apply now</a>
+      </div>
+      <div class="footer-col">
+        <h4>Campus</h4>
+        <a href="#campus-life">Student life</a>
+        <a href="#">Athletics</a>
+        <a href="#">Visit campus</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="#about">History</a>
+        <a href="#">Leadership</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Ashgrove University. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const open = links.style.display === 'flex';
+      links.style.display = open ? 'none' : 'flex';
+      links.style.cssText += open ? '' : `
+        position: absolute; top: 84px; left: 0; right: 0;
+        background: #F7F4EC; flex-direction: column; align-items: flex-start;
+        padding: 20px 32px; border-bottom: 1px solid rgba(26,39,68,0.14); gap: 18px; z-index: 99;
+      `;
+    });
+  }
+</script>
+</body>
+</html>

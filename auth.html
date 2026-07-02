@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in</title>
+<style>
+  :root{
+    --ink:#12151c;
+    --paper:#eef0f4;
+    --line:#d7dae1;
+    --accent:#3454d1;
+    --accent-ink:#ffffff;
+    --error:#c1432f;
+    --success:#1f8a5b;
+    --muted:#6b7280;
+    --radius:10px;
+    font-family:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .card{
+    width:100%;
+    max-width:400px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:36px 32px;
+    box-shadow:0 1px 2px rgba(18,21,28,0.04);
+  }
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 6px;
+    font-weight:600;
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:26px;
+    font-weight:700;
+    margin:0 0 24px;
+    letter-spacing:-0.01em;
+  }
+
+  .tabs{
+    display:flex;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:3px;
+    margin-bottom:24px;
+    background:var(--paper);
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:9px 0;
+    font-size:14px;
+    font-weight:600;
+    border-radius:calc(var(--radius) - 4px);
+    cursor:pointer;
+    color:var(--muted);
+    transition:background .15s, color .15s;
+    user-select:none;
+  }
+  .tab.active{
+    background:#fff;
+    color:var(--ink);
+    box-shadow:0 1px 2px rgba(18,21,28,0.08);
+  }
+
+  form{ display:flex; flex-direction:column; gap:14px; }
+  form.hidden{ display:none; }
+
+  label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:-6px;
+  }
+
+  input[type="email"], input[type="password"], input[type="text"]{
+    font:inherit;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#fdfdfe;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  input:focus-visible{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(52,84,209,0.15);
+  }
+
+  button{
+    font:inherit;
+    font-weight:600;
+    font-size:14px;
+    border:none;
+    border-radius:8px;
+    padding:11px 16px;
+    cursor:pointer;
+    transition:opacity .15s, transform .1s;
+  }
+  button:active{ transform:scale(0.99); }
+  button:disabled{ opacity:0.6; cursor:not-allowed; }
+
+  .btn-primary{
+    background:var(--ink);
+    color:#fff;
+    margin-top:4px;
+  }
+  .btn-primary:hover:not(:disabled){ opacity:0.88; }
+
+  .btn-google{
+    background:#fff;
+    color:var(--ink);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+  .btn-google:hover:not(:disabled){ background:var(--paper); }
+  .btn-google svg{ width:18px; height:18px; }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:6px 0;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .message{
+    font-size:13px;
+    padding:10px 12px;
+    border-radius:8px;
+    display:none;
+    line-height:1.4;
+  }
+  .message.show{ display:block; }
+  .message.error{ background:#fbeae7; color:var(--error); }
+  .message.success{ background:#e8f5ef; color:var(--success); }
+
+  .forgot{
+    font-size:13px;
+    color:var(--muted);
+    text-align:right;
+    text-decoration:none;
+    margin-top:-6px;
+    cursor:pointer;
+  }
+  .forgot:hover{ color:var(--accent); }
+
+  /* Signed-in state */
+  .account{ display:none; flex-direction:column; gap:16px; text-align:center; }
+  .account.show{ display:flex; }
+  .avatar{
+    width:56px; height:56px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto;
+  }
+  .account-email{
+    font-size:14px;
+    color:var(--muted);
+    word-break:break-all;
+  }
+
+  .spinner{
+    width:14px; height:14px;
+    border:2px solid rgba(255,255,255,0.4);
+    border-top-color:#fff;
+    border-radius:50%;
+    display:inline-block;
+    animation:spin 0.7s linear infinite;
+    vertical-align:-2px;
+    margin-right:6px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <p class="eyebrow" id="eyebrow">Welcome</p>
+  <h1 id="heading">Sign in to continue</h1>
+
+  <!-- Auth forms (shown when signed out) -->
+  <div id="authArea">
+    <div class="tabs">
+      <div class="tab active" data-tab="signin">Sign in</div>
+      <div class="tab" data-tab="signup">Create account</div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <button type="button" class="btn-google" id="googleBtn">
+      <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.5 29.3 35.5 24 35.5c-6.4 0-11.7-4.9-12.3-11.2H24v-8H2.5C1.5 18.9 1 21.4 1 24c0 12.7 10.3 23 23 23s23-10.3 23-23c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M3.2 14.7l6.6 4.8C11.6 15.6 17.4 12 24 12c3.5 0 6.7 1.2 9.2 3.3l6.4-6.4C35.9 5.4 30.2 3 24 3 15.3 3 7.8 8 3.2 14.7z"/><path fill="#4CAF50" d="M24 45c6.1 0 11.7-2.3 15.9-6.1l-7.3-6.2C30.4 34.4 27.4 35.5 24 35.5c-5.3 0-9.7-3.4-11.3-8.1l-7.4 5.7C9.5 39.7 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4 5.7l7.3 6.2C42.9 36.1 46 30.6 46 24c0-1.2-.1-2.3-.4-3.5z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="divider">or use email</div>
+
+    <!-- Sign in -->
+    <form id="signinForm">
+      <label for="signinEmail">Email</label>
+      <input type="email" id="signinEmail" autocomplete="email" required />
+      <label for="signinPassword">Password</label>
+      <input type="password" id="signinPassword" autocomplete="current-password" required />
+      <a class="forgot" id="forgotBtn">Forgot password?</a>
+      <button type="submit" class="btn-primary" id="signinSubmit">Sign in</button>
+    </form>
+
+    <!-- Sign up -->
+    <form id="signupForm" class="hidden">
+      <label for="signupName">Name</label>
+      <input type="text" id="signupName" autocomplete="name" required />
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" autocomplete="email" required />
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" autocomplete="new-password" minlength="6" required />
+      <button type="submit" class="btn-primary" id="signupSubmit">Create account</button>
+    </form>
+  </div>
+
+  <!-- Signed-in view -->
+  <div id="accountArea" class="account">
+    <div class="avatar" id="avatarInitial">?</div>
+    <div>
+      <div style="font-weight:600;font-size:16px;" id="accountName">—</div>
+      <div class="account-email" id="accountEmail">—</div>
+    </div>
+    <button type="button" class="btn-primary" id="signoutBtn">Sign out</button>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics, isSupported as analyticsIsSupported } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut,
+    onAuthStateChanged,
+    sendPasswordResetEmail,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZXFSlraoZhB5JqMj3t7s-H13TD4c1yYs",
+    authDomain: "project-1-721fb.firebaseapp.com",
+    projectId: "project-1-721fb",
+    storageBucket: "project-1-721fb.firebasestorage.app",
+    messagingSenderId: "813138072996",
+    appId: "1:813138072996:web:ab45135edef91253b45d31",
+    measurementId: "G-HHKD4LKKDH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  // Analytics only works in supported browser contexts (not file://, not all browsers)
+  analyticsIsSupported().then((supported) => {
+    if (supported) getAnalytics(app);
+  });
+
+  // ── DOM references ──
+  const authArea = document.getElementById('authArea');
+  const accountArea = document.getElementById('accountArea');
+  const heading = document.getElementById('heading');
+  const eyebrow = document.getElementById('eyebrow');
+  const messageEl = document.getElementById('message');
+
+  const tabs = document.querySelectorAll('.tab');
+  const signinForm = document.getElementById('signinForm');
+  const signupForm = document.getElementById('signupForm');
+
+  const googleBtn = document.getElementById('googleBtn');
+  const forgotBtn = document.getElementById('forgotBtn');
+  const signoutBtn = document.getElementById('signoutBtn');
+
+  const signinSubmit = document.getElementById('signinSubmit');
+  const signupSubmit = document.getElementById('signupSubmit');
+
+  // ── Helpers ──
+  function showMessage(text, type = 'error') {
+    messageEl.textContent = text;
+    messageEl.className = `message show ${type}`;
+  }
+  function clearMessage() {
+    messageEl.className = 'message';
+    messageEl.textContent = '';
+  }
+  function setLoading(button, loading, label) {
+    button.disabled = loading;
+    button.innerHTML = loading ? `<span class="spinner"></span>${label}` : label;
+  }
+  function friendlyError(error) {
+    const map = {
+      'auth/invalid-email': 'That email address looks invalid.',
+      'auth/user-disabled': 'This account has been disabled.',
+      'auth/user-not-found': 'No account found with that email.',
+      'auth/wrong-password': 'Incorrect password. Try again.',
+      'auth/invalid-credential': 'Incorrect email or password.',
+      'auth/email-already-in-use': 'An account already exists with that email.',
+      'auth/weak-password': 'Password should be at least 6 characters.',
+      'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
+      'auth/too-many-requests': 'Too many attempts. Please wait and try again.',
+    };
+    return map[error.code] || 'Something went wrong. Please try again.';
+  }
+
+  // ── Tab switching ──
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      clearMessage();
+      if (tab.dataset.tab === 'signin') {
+        signinForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        heading.textContent = 'Sign in to continue';
+      } else {
+        signupForm.classList.remove('hidden');
+        signinForm.classList.add('hidden');
+        heading.textContent = 'Create your account';
+      }
+    });
+  });
+
+  // ── Sign up ──
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMessage();
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+
+    setLoading(signupSubmit, true, 'Creating account');
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      if (name) {
+        await updateProfile(cred.user, { displayName: name });
+      }
+    } catch (error) {
+      showMessage(friendlyError(error));
+    } finally {
+      setLoading(signupSubmit, false, 'Create account');
+    }
+  });
+
+  // ── Sign in ──
+  signinForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMessage();
+    const email = document.getElementById('signinEmail').value.trim();
+    const password = document.getElementById('signinPassword').value;
+
+    setLoading(signinSubmit, true, 'Signing in');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      showMessage(friendlyError(error));
+    } finally {
+      setLoading(signinSubmit, false, 'Sign in');
+    }
+  });
+
+  // ── Google sign-in ──
+  googleBtn.addEventListener('click', async () => {
+    clearMessage();
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      showMessage(friendlyError(error));
+    }
+  });
+
+  // ── Forgot password ──
+  forgotBtn.addEventListener('click', async () => {
+    clearMessage();
+    const email = document.getElementById('signinEmail').value.trim();
+    if (!email) {
+      showMessage('Enter your email above first, then click "Forgot password?"');
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showMessage('Password reset email sent. Check your inbox.', 'success');
+    } catch (error) {
+      showMessage(friendlyError(error));
+    }
+  });
+
+  // ── Sign out ──
+  signoutBtn.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  // ── Auth state observer ──
+  onAuthStateChanged(auth, (user) => {
+    clearMessage();
+    if (user) {
+      authArea.style.display = 'none';
+      accountArea.classList.add('show');
+      eyebrow.textContent = 'Signed in';
+      heading.textContent = 'Your account';
+
+      const name = user.displayName || user.email.split('@')[0];
+      document.getElementById('accountName').textContent = name;
+      document.getElementById('accountEmail').textContent = user.email || '';
+      document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+    } else {
+      authArea.style.display = 'block';
+      accountArea.classList.remove('show');
+      eyebrow.textContent = 'Welcome';
+      const activeTab = document.querySelector('.tab.active');
+      heading.textContent = activeTab && activeTab.dataset.tab === 'signup'
+        ? 'Create your account'
+        : 'Sign in to continue';
+    }
+  });
+</script>
+</body>
+</html>
