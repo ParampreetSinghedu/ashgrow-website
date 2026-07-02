@@ -570,12 +570,33 @@ section { padding: 96px 0; }
       <a href="#campus-life">Campus Life</a>
       <a href="#about">About</a>
     </nav>
-    <div class="nav-actions">
-      <a href="auth.html" class="btn btn-outline btn-sm">Log in</a>
-      <a href="signup.html" class="btn btn-brass btn-sm">Apply now</a>
-    </div>
-    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-  </div>
+<div class="nav-actions">
+
+    <span
+        id="welcomeUser"
+        style="display:none; font-weight:600; margin-right:12px;">
+    </span>
+
+    <a href="auth.html"
+       class="btn btn-outline btn-sm"
+       id="loginBtn">
+        Log in
+    </a>
+
+    <button
+        class="btn btn-outline btn-sm"
+        id="logoutBtn"
+        style="display:none;">
+        Log out
+    </button>
+
+    <a href="auth.html"
+       class="btn btn-brass btn-sm">
+        Apply now
+    </a>
+
+</div>
+</div>
 </header>
 
 <!-- ============ HERO ============ -->
@@ -589,7 +610,7 @@ section { padding: 96px 0; }
       <h1>A place built for the work that <em>takes a lifetime.</em></h1>
       <p class="hero-sub">Ashgrove University brings together 6,400 students and 480 faculty across eleven schools, united by one habit: asking harder questions than the ones we started with.</p>
       <div class="hero-cta">
-        <a href="signup.html" class="btn btn-brass btn-lg">Apply for admission</a>
+        <a href="auth.html" class="btn btn-brass btn-lg">Apply for admission</a>
         <a href="#academics" class="btn btn-outline-light btn-lg">Explore programs</a>
       </div>
       <div class="hero-facts">
@@ -808,7 +829,7 @@ section { padding: 96px 0; }
       <h2>Your application starts with one page.</h2>
       <p>No fee waiver paperwork required upfront — start now and we'll walk you through it.</p>
       <div class="hero-cta">
-        <a href="signup.html" class="btn btn-brass btn-lg">Start your application</a>
+        <a href="auth.html" class="btn btn-brass btn-lg">Start your application</a>
         <a href="auth.html" class="btn btn-outline-light btn-lg">Returning applicant? Log in</a>
       </div>
     </div>
@@ -842,7 +863,7 @@ section { padding: 96px 0; }
         <h4>Admissions</h4>
         <a href="#admissions">How to apply</a>
         <a href="#">Tuition &amp; aid</a>
-        <a href="signup.html">Apply now</a>
+        <a href="auth.html">Apply now</a>
       </div>
       <div class="footer-col">
         <h4>Campus</h4>
@@ -868,23 +889,86 @@ section { padding: 96px 0; }
   </div>
 </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  // mobile nav toggle
-  const toggle = document.querySelector('.nav-toggle');
-  const links = document.querySelector('.nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', () => {
-      const open = links.style.display === 'flex';
-      links.style.display = open ? 'none' : 'flex';
-      links.style.cssText += open ? '' : `
-        position: absolute; top: 84px; left: 0; right: 0;
-        background: #F7F4EC; flex-direction: column; align-items: flex-start;
-        padding: 20px 32px; border-bottom: 1px solid rgba(26,39,68,0.14); gap: 18px; z-index: 99;
-      `;
+const firebaseConfig = {
+  apiKey: "AIzaSyAZXFSlraoZhB5JqMj3t7s-H13TD4c1yYs",
+  authDomain: "project-1-721fb.firebaseapp.com",
+  projectId: "project-1-721fb",
+  storageBucket: "project-1-721fb.firebasestorage.app",
+  messagingSenderId: "813138072996",
+  appId: "1:813138072996:web:ab45135edef91253b45d31",
+  measurementId: "G-HHKD4LKKDH"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Existing year code
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Mobile menu
+const toggle = document.querySelector(".nav-toggle");
+const links = document.querySelector(".nav-links");
+
+if (toggle && links) {
+    toggle.addEventListener("click", () => {
+        const open = links.style.display === "flex";
+        links.style.display = open ? "none" : "flex";
+        links.style.cssText += open ? "" : `
+            position:absolute;
+            top:84px;
+            left:0;
+            right:0;
+            background:#F7F4EC;
+            flex-direction:column;
+            align-items:flex-start;
+            padding:20px 32px;
+            border-bottom:1px solid rgba(26,39,68,.14);
+            gap:18px;
+            z-index:99;
+        `;
     });
-  }
+}
+
+// Authentication UI
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const welcomeUser = document.getElementById("welcomeUser");
+
+onAuthStateChanged(auth, (user) => {
+
+    if (user) {
+
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+
+        welcomeUser.style.display = "inline";
+        welcomeUser.textContent =
+            "Welcome, " +
+            (user.displayName || user.email.split("@")[0]);
+
+    } else {
+
+        loginBtn.style.display = "inline-flex";
+        logoutBtn.style.display = "none";
+
+        welcomeUser.style.display = "none";
+    }
+
+});
+
+logoutBtn.addEventListener("click", async () => {
+
+    await signOut(auth);
+
+    window.location.href = "index.html";
+
+});
+
+});
 </script>
 </body>
 </html>
